@@ -77,4 +77,17 @@ export class ReconciliationService {
       ],
     });
   }
+
+  async reconcileByInvoice(invoiceId: string, expectedStatus: 'paid' | 'void'): Promise<void> {
+    // Auto-heal discrepancies by aligning the payment state with the invoice state.
+    // The invoice is the bookkeeping source of truth for monthly closes.
+    const targetPaymentStatus = expectedStatus === 'paid' ? 'succeeded' : 'refunded';
+    await this.runQuery(
+      `UPDATE payments
+       SET status = $2, updated_at = NOW()
+       FROM invoices
+       WHERE invoices.id = $1 AND payments.invoice_id = invoices.id`,
+      [invoiceId, targetPaymentStatus],
+    );
+  }
 }

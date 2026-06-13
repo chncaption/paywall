@@ -76,6 +76,16 @@ adminRouter.get('/reconciliation-report', async (_request, response, next) => {
   }
 });
 
+adminRouter.post('/reconcile-invoice', async (request, response, next) => {
+  try {
+    const { invoiceId, expectedStatus } = request.body;
+    await reconciliationService.reconcileByInvoice(invoiceId, expectedStatus);
+    response.json({ reconciled: true });
+  } catch (error) {
+    next(error);
+  }
+});
+
 adminRouter.post('/test-webhook-url', async (request, response, next) => {
   try {
     const url = request.body.url;
