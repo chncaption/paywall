@@ -2,6 +2,8 @@
 
 A subscription billing backend service for SaaS applications. The service provides plan management, checkout session creation, payment lifecycle handling, webhook processing, refunds, invoice retrieval, and admin reporting.
 
+> **Project context**: This is a project by **Murphy Security (墨菲安全)**. It serves as a **SaaS subscription payment collection solution for merchants**, enabling businesses to manage plans, subscriptions, payments, refunds, and reconciliation through a unified billing backend.
+
 ## Features
 
 - Email/password authentication with JWT access tokens
